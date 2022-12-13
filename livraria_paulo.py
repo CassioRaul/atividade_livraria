@@ -72,8 +72,9 @@ class Livraria:
 
     def adicionar_livro(self, quant_livros):
         if type(quant_livros) == type(int()):
-            if self.__estoque < self.__limite_de_estoque:            
+            if quant_livros < self.__limite_de_estoque:
                 self.__estoque += quant_livros
+                print(f'VOCÊ ADICIONOU {quant_livros} EM SEU ESTOQUE.')
             else:
                 print('VOCÊ NÃO PODE ADICIONAR MAIS LIVROS!')
         else:
@@ -85,5 +86,6 @@ class Livraria:
 livro = Livraria('Harry Potter', 300, 'Português', 'Alugado')
 print(livro)
 print(livro.verificar_estoque())
+livro.adicionar_livro(100)
 livro.adicionar_livro(3000)
 print(livro.verificar_estoque())
