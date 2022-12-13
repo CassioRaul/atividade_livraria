@@ -20,9 +20,8 @@ class Livraria:
         self.__num_de_pag = numero_de_paginas
         self.__idioma = idioma
         self.__tipo = tipo
-        self.__estoque_revista = 0
-        self.__estoque_livro = 0
-        self.limite_de_estoque = 1000
+        self.__estoque = 0
+        self.__limite_de_estoque = 1000
     
     @property
     def nome(self):
@@ -55,7 +54,7 @@ class Livraria:
         if type(novo_idioma) == str():
             self.__idioma = novo_idioma
         else:
-            print('Digite corretamente')
+            print('DIGITE NOVAMENTE!')
 
     @property
     def tipo(self):
@@ -66,24 +65,25 @@ class Livraria:
         if type(novo_tipo) == str():
             self.__tipo = novo_tipo
         else:
-            print('Digite corretamente')
+            print('DIGITE NOVAMENTE!')
     
-    def adicionar_livros(self, livros):
-        if self.limite_de_estoque < 1000:
-            if type(livros) == int():
-                self.__estoque_livro += livros
-            else:
-                print('DIGITE NOVAMENTE!')
-        else:
-            print('VOCÊ NÃO PODE ADICIONAR MAIS LIVROS!')
+    def verificar_estoque(self):
+        return f'VOCÊ TEM EM ESTOQUE ENTRE LIVROS E REVISTAS {self.__estoque} EXEMPLARES.'
 
-    def adicionar_revista(self, resvista):
-        if self.limite_de_estoque < 1000:
-            if type(resvista) == int():
-                self.__estoque_revista += resvista
+    def adicionar_livro(self, quant_livros):
+        if type(quant_livros) == type(int()):
+            if self.__estoque < self.__limite_de_estoque:            
+                self.__estoque += quant_livros
             else:
-                print('DIGITE NOVAMENTE!')
+                print('VOCÊ NÃO PODE ADICIONAR MAIS LIVROS!')
         else:
-            print('VOCÊ NÃO PODE ADICIONAR MAIS LIVROS!')
+            print('DIGITE NOVAMENTE!')
 
-livro = Livraria('Harry Potter', 300)
+    def __str__(self):
+        return f'Seu livro é {self.__nome} tem {self.__num_de_pag} páginas está em {self.__idioma} e é {self.__tipo}'
+
+livro = Livraria('Harry Potter', 300, 'Português', 'Alugado')
+print(livro)
+print(livro.verificar_estoque())
+livro.adicionar_livro(3000)
+print(livro.verificar_estoque())
