@@ -22,8 +22,8 @@ class Livraria:
         self.__editora = editora
         self.__tipo = tipo
         self.__estoque = 0
-        self.__estoque_livro = 0
-        self.__estoque_revista = 0
+        #self.__estoque_livro = 0
+        #self.__estoque_revista = 0
         self.__limite_de_estoque = 1000
     
     @property
@@ -85,35 +85,43 @@ class Livraria:
         if type(quant_livros) == type(int()):
             if quant_livros < self.__limite_de_estoque and self.__estoque < self.__limite_de_estoque:
                 self.__estoque += quant_livros
-                print(f'VOCÊ ADICIONOU {quant_livros} LIVROS EM SEU ESTOQUE.')
+                print(f'VOCÊ ADICIONOU {quant_livros} LIVROS EM SEU ESTOQUE de {self.__estoque}.')
             else:
                 print('VOCÊ NÃO PODE ADICIONAR MAIS EXAMPLARES!')
         else:
             print('DIGITE NOVAMENTE!')
 
-    def adicionar_revista(self, quant_revista):
-        if type(quant_revista) == type(int()):
-            if quant_revista < self.__limite_de_estoque and self.__estoque < self.__limite_de_estoque:
-                self.__estoque += quant_revista
-                print(f'VOCÊ ADICIONOU {quant_revista} REVISTAS EM SEU ESTOQUE.')
-            else:
-                print('VOCÊ NÃO PODE ADICIONAR MAIS EXAMPLARES!')
-        else:
-            print('DIGITE NOVAMENTE!')
+#    def adicionar_revista(self, quant_revista):
+#        if type(quant_revista) == type(int()):
+#            total_revistas = self.__estoque + quant_revista
+#            if quant_revista < self.__limite_de_estoque and self.__estoque < self.__limite_de_estoque:
+#                self.__estoque += total_revistas
+#                print(f'VOCÊ ADICIONOU {quant_revista} REVISTAS EM SEU ESTOQUE DE {self.__estoque}.')
+#            else:
+#                print('VOCÊ NÃO PODE ADICIONAR MAIS EXAMPLARES!')
+#        else:
+#            print('DIGITE NOVAMENTE!')
 
-    def verificar_estoque_livros(self):
-        return f'VOCÊ TEM {self.__estoque_livro} LIVROS EM SEU ESTOQUE.'
+#    def verificar_estoque_livros(self):
+#        return f'VOCÊ TEM {self.__estoque} LIVROS EM SEU ESTOQUE.'
     
-    def verificar_estoque_revistas(self):
-        return f'VOCÊ TEM {self.__estoque_revista} REVISTAS EM SEU ESTOQUE.'
+#    def verificar_estoque_revistas(self):
+#        return f'VOCÊ TEM {self.__estoque} REVISTAS EM SEU ESTOQUE.'
     
     def verificar_estoque(self):
-        print (f'VOCÊ TEM EM ESTOQUE ENTRE LIVROS E REVISTAS {self.__estoque} EXEMPLARES.')
+        return (f'VOCÊ TEM EM ESTOQUE ENTRE LIVROS E REVISTAS {self.__estoque} EXEMPLARES.')
     
     def aluguel(self):
-        if self.__tipo == 'Alugado' or self.__tipo == 'Vendido':
-            aluguel = self.__estoque - 1
-            print(f'FOI RETIRADO {aluguel} EXEMPLAR DO ESTOQUE.')
+        if self.__tipo == 'Alugado':
+            self.__estoque -= 1
+            return f'FOI RETIRADO {self.__estoque} DO ESTOQUE.'
+        else:
+            print('DIGITE NOVAMENTE!')
+
+    def vendido(self):
+        if self.__tipo == 'Vendido':
+            self.__estoque -= 1
+            return f'FOI RETIRADO {self.__estoque} DO ESTOQUE.'
         else:
             print('DIGITE NOVAMENTE!')
 
@@ -135,12 +143,11 @@ print(livro)
 print('*'*20)
 livro.adicionar_livro(100)
 print('*'*20)
-revista.adicionar_revista(7)
 print('*'*20)
 livro.adicionar_livro(3)
 print('*'*20)
-print(livro.verificar_estoque_livros())
-revista.aluguel()
-livro.aluguel()
-livro.verificar_estoque()
-print(livro)
+print(livro.verificar_estoque())
+print(revista.vendido())
+print(livro.aluguel())
+print(livro.aluguel())
+print(livro.verificar_estoque())
